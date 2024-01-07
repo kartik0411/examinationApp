@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../../.."
+		},
+		{
+			"path": "../../../../../../../kiwitech/Geer-Frontend"
+		},
+		{
+			"path": "../../../../../../../kiwitech/emerald-gui"
+		},
+		{
+			"path": "../../../../../../examinationAppBE"
+		}
+	],
+	"settings": {}
+}

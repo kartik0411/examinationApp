@@ -1,0 +1,222 @@
+{
+    "questions": [
+        {
+            "MBTI": [
+                {
+                    "questionGroupId": "",
+                    "type": "multiple-choice",
+                    "questionDescription": "The first question has to do with how are you 'ENERGISED'.",
+                    "options": [
+                        {
+                            "A": [
+                                "Tolerate noise and crowds",
+                                "Talk more than listen",
+                                "Communicate with enthusiasm",
+                                "Be distracted easily.",
+                                "Meet people readily and participate in many activities.",
+                                "Blurt things out without thinking.",
+                                "Hates to do nothing on the go.",
+                                "Likes working or talking in groups.",
+                                "Likes to be center of attention.",
+                                "Be distracted easily."
+                            ],
+                            "B": [
+                                "Avoid crowds and seek quiet.",
+                                "Listen more than talk.",
+                                "Keep enthusiasm to self.",
+                                "Concentrate well.",
+                                "Proceed cautiously in meeting people & participate in selected activities.",
+                                "Think carefully before speaking.",
+                                "Time alone recharges batteries.",
+                                "Would prefer to socialize in small groups or just do the job by myself.",
+                                "Content being on the sidelines.",
+                                "Concentrate well."
+                            ]
+                        }
+                    ],
+                    "isRequired": false,
+                    "maxAnswers": 2,
+                    "correctAnswers": [],
+                    "userSelectedAnswers": []
+                },
+                {
+                    "questionGroupId": "",
+                    "type": "multiple-choice",
+                    "questionDescription": "This question is to find how you GATHER information or what you pay ATTENTION to.",
+                    "options": [
+                        {
+                            "A": [
+                                "Learn new thing by imitation and observation.",
+                                "Value solid, recognizable methods achieved in a step-by-step manner.",
+                                "Focus on actual experience",
+                                "Tend to be specific and literal, give detailed descriptions",
+                                "Behave practically.",
+                                "Rely on past experiences.",
+                                "Likes predictable relationships.",
+                                "Methodical.",
+                                "Value realism and common sense."
+                            ],
+                            "B": [
+                                "Learn new things through general concepts.",
+                                "Value different or unusual methods achieved via inspiration.",
+                                "Focus on possibilities.",
+                                "Tend to be general and figurative, use metaphors and analogies.",
+                                "Rely on hunches.",
+                                "Values change in relationships.",
+                                "Use new and different ways to solve problems and teach solutions.",
+                                "Leap around in a roundabout way.",
+                                "Value imagination and innovation."
+                            ]
+                        }
+                    ],
+                    "isRequired": false,
+                    "maxAnswers": 2,
+                    "correctAnswers": [],
+                    "userSelectedAnswers": []
+                },
+                {
+                    "questionGroupId": "",
+                    "type": "multiple-choice",
+                    "questionDescription": "This category identifies how you make DECISIONS and reach conclusions.",
+                    "options": [
+                        {
+                            "A": [
+                                "Have truth as an objective.",
+                                "Decide more with my head.",
+                                "Question other's findings, because they might be wrong.",
+                                "Notice ineffective reasoning.",
+                                "Choose truthfulness over tactfulness.",
+                                "Deal with people firmly, as needed.",
+                                "Expect the world to run on logical principles.",
+                                "Notice pros & cons of each option.",
+                                "See others' flaws critically.",
+                                "Feeling valid if they are logical.",
+                                "Tolerate occasional queries as to my emotional state in relationships."
+                            ],
+                            "B": [
+                                "Have harmony as a goal.",
+                                "Decide more with my heart.",
+                                "Agree more with others' findings, because people are worth listening to.",
+                                "Notice when people need support.",
+                                "Choose tactfulness over truthfulness.",
+                                "Deal with people compassionately.",
+                                "Expect the world to recognize individual differences.",
+                                "Note how an option has value and it affects people.",
+                                "Like to please others; show appreciation.",
+                                "ANY feeling is valid.",
+                                "Appreciate frequent queries as to my emotional state."
+                            ]
+                        }
+                    ],
+                    "isRequired": false,
+                    "maxAnswers": 2,
+                    "correctAnswers": [],
+                    "userSelectedAnswers": []
+                },
+                {
+                    "questionGroupId": "",
+                    "type": "multiple-choice",
+                    "questionDescription": "Last One...This one has to do with the LIFESTYLE you adopt.",
+                    "options": [
+                        {
+                            "A": [
+                                "Prefer my life to be decisive, imposing my will on it.",
+                                "Prefer knowing what they are getting themselves into.",
+                                "Feel better after making decisions.",
+                                "Enjoy finishing things.",
+                                "Work for a settled life with my plans in order.",
+                                "Dislike surprises & want advance warnings.",
+                                "See time as a finite resource and take deadlines seriously.",
+                                "Like checking off \"to-do\" list.",
+                                "Feel better with things planned.",
+                                "Settled and Organized."
+                            ],
+                            "B": [
+                                "Seek to adapt my life and experience to what comes along.",
+                                "Like adapting to new situations.",
+                                "Prefer to keep things open.",
+                                "Enjoy starting things.",
+                                "Keep my life as flexible as possible so that nothing's missed.",
+                                "Enjoy surprises and like adapting to last-minute changes.",
+                                "See time as a renewable resource and see deadlines as elastic.",
+                                "Ignore \"to-do\" list even if made one.",
+                                "Would rather do whatever comes along.",
+                                "Tentative. Flexible. Spontaneous."
+                            ]
+                        }
+                    ],
+                    "isRequired": false,
+                    "maxAnswers": 2,
+                    "correctAnswers": [],
+                    "userSelectedAnswers": []
+                }
+            ],
+            "DBDI": [
+                {
+                    "questionGroupId": "",
+                    "type": "multiple-choice",
+                    "questionDescription": "ADD",
+                    "exampleQuestionDescription": "This test is made up of short number problems. Each problem is followed by five choices. You are to choose the correct answer and select it. Work as quickly and accurately as you can. Two examples follow.",
+                    "questionExample": "Example X",
+                    "options": [
+                        {
+                            "A": [
+                                231
+                            ],
+                            "B": [
+                                241
+                            ],
+                            "C": [
+                                153
+                            ],
+                            "D": [
+                                261
+                            ],
+                            "E": [
+                                243
+                            ]
+                        }
+                    ],
+                    "isRequired": false,
+                    "maxAnswers": 1,
+                    "correctAnswers": [
+                        "B"
+                    ],
+                    "userSelectedAnswers": []
+                },
+                {
+                    "questionGroupId": "",
+                    "type": "multiple-choice",
+                    "questionDescription": "",
+                    "exampleQuestionDescription": "This test is made up of short number problems. Each problem is followed by five choices. You are to choose the correct answer and select it. Work as quickly and accurately as you can. Two examples follow.",
+                    "questionExample": "Example Y",
+                    "options": [
+                        {
+                            "A": [
+                                "path1"
+                            ],
+                            "B": [
+                                "path2"
+                            ],
+                            "C": [
+                                "path3"
+                            ],
+                            "D": [
+                                "path4"
+                            ],
+                            "E": [
+                                "path5"
+                            ]
+                        }
+                    ],
+                    "isRequired": false,
+                    "maxAnswers": 1,
+                    "correctAnswers": [
+                        "C"
+                    ],
+                    "userSelectedAnswers": []
+                }
+            ]
+        }
+    ]
+}
