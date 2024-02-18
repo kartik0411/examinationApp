@@ -36,10 +36,37 @@ export const loginUser = (body) => async (dispatch) => {
   return new Promise(async (resolve, reject) => {
     try {
       dispatch({ type: USER_LOGIN_REQUEST });
-      const { data } = await axios.post("/login", body);
-      setCookies("role", data.data.userObj.role);
-      localStorage.setItem("token", JSON.stringify(data.data));
+      const { data } = await axios.get("/students/"+body);
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+      dispatch({
+        type: SET_TOAST_STATE,
+        payload: {
+          showToast: true,
+          message: "Welcome "+data.name,
+          toastType: "success",
+        },
+      });
+      resolve(data);
+    } catch (error) {
+      dispatch({ type: USER_LOGIN_FAIL });
+      dispatch({
+        type: SET_TOAST_STATE,
+        payload: {
+          showToast: true,
+          message: "No Student Found!",
+          toastType: "error",
+        },
+      });
+    }
+  });
+};
+
+export const gettests = (body) => async (dispatch) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      dispatch({ type: USER_REGISTER_REQUEST });
+      const { data } = await axios.get("/getAllTestsExams/"+ body);
+      dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
       dispatch({
         type: SET_TOAST_STATE,
         payload: {
@@ -48,9 +75,10 @@ export const loginUser = (body) => async (dispatch) => {
           toastType: "success",
         },
       });
+      console.log("testsdata2222"+JSON.stringify(data));
       resolve(data);
     } catch (error) {
-      dispatch({ type: USER_LOGIN_FAIL });
+      dispatch({ type: USER_REGISTER_FAIL });
       reject(error?.response?.data?.message || error.message);
     }
   });

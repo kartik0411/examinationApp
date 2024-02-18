@@ -1,27 +1,66 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Segmented, Form, Row, Col, Input, Button } from "antd";
 import { loginUser } from "../actions/userActions";
+import { gettests } from "../actions/userActions";
 import { SET_TOAST_STATE } from "../constants/constants";
+import { showoneStudent } from "../redux/studentSlice";
+import { showTest } from "../redux/testSlice";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
   const handleUserSelection = (e) => {
     console.log(e);
   };
+  // let { student} = useSelector((state) => {   
+  //   // console.log("state.studentDetail = "+JSON.stringify(state.studentDetail)); 
+  //   if(state.studentDetail?.students?._id) {
+  //     dispatch({
+  //       type: SET_TOAST_STATE,
+  //       payload: {
+  //         showToast: true,
+  //         message: "Welcome "+state.studentDetail?.students?.name,
+  //         toastType: "success",
+  //       },
+  //     });
+
+  //   }
+  //   return state.studentDetail; 
+  // });
+  let { studenttests} = useSelector((state) => { 
+    if(state.testDetail?.tests?.name) {
+      dispatch({
+        type: SET_TOAST_STATE,
+        payload: {
+          showToast: true,
+          message: "Welcome "+state.testDetail?.tests?.name,
+          toastType: "success",
+        },
+      });
+      navigate("/student/exam/preview",{state: state.testDetail});
+    }
+    return state.testDetail; 
+  });
   const onFinish = async (values) => {
     try {
-      const { data } = await dispatch(loginUser(values));
-
-      console.log(data);
-      if (data?.userObj?.role === "student") {
-        navigate("/student/exam/preview");
-      }
-      if (data?.userObj?.role === "admin") {
-        navigate("/admin/school");
+      console.log("value hai "+JSON.stringify(values))
+      let requestid = values.password;
+      // const { data } = dispatch(loginUser(requestid));
+      // console.log("hhttddddddddddd")
+      // console.log("hhttddddd"+JSON.stringify(data))
+      // localStorage.setItem("studentid", JSON.stringify(data._id));
+      // const { testsdata } = await dispatch(gettests(data._id));
+      // console.log("testsdata"+JSON.stringify(testsdata));
+      // data.tests = testsdata;
+      // localStorage.setItem("tests", JSON.stringify(data?.tests));
+      // console.log(data);
+      if(requestid) {
+        console.log("jjjjjjj")
+        dispatch(showTest(requestid));
       }
       // if (data?.userObj?.role === "subAdmin") { // navigate to SubAdmin pages
       //   navigate("/student/exam/preview");
@@ -77,32 +116,7 @@ function Login() {
                       defaultValue="student"
                       name="role"
                       options={[
-                        {
-                          label: (
-                            <div
-                              style={{
-                                padding: 4,
-                              }}
-                            >
-                              <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
-                              <div>Admin</div>
-                            </div>
-                          ),
-                          value: "admin",
-                        },
-                        {
-                          label: (
-                            <div
-                              style={{
-                                padding: 4,
-                              }}
-                            >
-                              <Avatar src="https://img.icons8.com/?size=512&id=17605&format=png"></Avatar>
-                              <div>Institution</div>
-                            </div>
-                          ),
-                          value: "subAdmin",
-                        },
+                      
                         {
                           label: (
                             <div
@@ -122,34 +136,18 @@ function Login() {
                 </Col>
               </Row>
               <Row className="d-flex justify-content-center">
-                <Col md={15} className="form-outline mt-3 ">
-                  <Form.Item
-                    label="Usernane"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Please enter your username!",
-                      },
-                    ]}
-                    name="userName"
-                  >
-                    <Input type="text" placeholder="Eneter Username" />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row className="d-flex justify-content-center">
                 <Col md={15} className="form-outline">
                   <Form.Item
-                    label="Enter Password"
+                    label="Enter Exam Key"
                     rules={[
                       {
                         required: true,
-                        message: "Please enter your password!",
+                        message: "Please enter your exam key!",
                       },
                     ]}
                     name="password"
                   >
-                    <Input.Password placeholder="Enter Password" />
+                    <Input.Password placeholder="Enter ExamKey" />
                   </Form.Item>
                 </Col>
               </Row>
