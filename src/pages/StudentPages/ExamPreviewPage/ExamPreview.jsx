@@ -26,24 +26,43 @@ let items = [];
       if(element.timer===true) {
         timerText = "Time : "+element.duration+" Seconds";
       }
-      let row = (<Row>
-      <Col md={12}>
-        <h5>{element.name}</h5>
-        <h6>Qusetions : {element.countQuestions}</h6>
-        <h6>{timerText}</h6>
-      </Col> 
-      <Col md={12}>
-        <Button
-          className="bg-success text-light btn-float"
-          size="large"
-          disabled={!element.buttonFlag}
-          style={{ color: "red", background: "red", borderColor: "yellow" }}
-          onClick={() => navigate("/student/exam/23456")}
-        >
-          Start Exam
-        </Button>
-      </Col>
-    </Row>);
+      let row = new Object();
+    if(element.buttonFlag===true) {
+      row = (<Row>
+        <Col md={12}>
+          <h5>{element.name}</h5>
+          <h6>Qusetions : {element.countQuestions}</h6>
+          <h6>{timerText}</h6>
+        </Col> 
+        <Col md={12}>
+          <Button
+            className="bg-success text-light btn-float"
+            size="large"
+            onClick={() => navigate("/student/exam/23456")}
+          >
+            {element.buttonText}
+          </Button>
+        </Col>
+      </Row>);
+    } else {
+      row= (<Row>
+        <Col md={12}>
+          <h5>{element.name}</h5>
+          <h6>Qusetions : {element.countQuestions}</h6>
+          <h6>{timerText}</h6>
+        </Col> 
+        <Col md={12}>
+          <Button
+            className="text-dark btn-float"
+            size="large"
+            onClick={() => navigate("/student/exam/23456")}
+            disabled
+          >
+            {element.buttonText}
+          </Button>
+        </Col>
+      </Row>);
+    }
     rows.push(row);
     });
 
