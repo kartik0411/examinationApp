@@ -5,7 +5,7 @@ export const createQuestion = createAsyncThunk(
   "createQuestion", // modify it to access the uploaded excel sheet
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      "http://localhost:9083/myndkare/v1/questions",
+      "https://myndkare-backend.onrender.com/myndkare/v1/questions",
       {
         method: "POST",
         headers: {
@@ -31,7 +31,7 @@ export const showQuestions = createAsyncThunk(
   async (id,examid, { rejectWithValue }) => {
     console.log("yahah bhi aararrarararra bccccc"+id+"   "+examid);
     const response = await fetch(
-      `http://localhost:9083/myndkare/v1/questionsForExam/${id}/${examid}`,
+      `https://myndkare-backend.onrender.com/myndkare/v1/questionsForExam/${id}/${examid}`,
       { method: "GET" }
     );
 
@@ -48,7 +48,7 @@ export const deleteQuestion = createAsyncThunk(
   "deleteQuestion",
   async (_id, { rejectWithValue }) => {
     const response = await fetch(
-      `http://localhost:9083/myndkare/v1/questions/${_id}`,
+      `https://myndkare-backend.onrender.com/myndkare/v1/questions/${_id}`,
       { method: "DELETE" }
     );
 
@@ -66,7 +66,7 @@ export const editQuestion = createAsyncThunk(
   "editQuestion",
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      `http://localhost:9083/myndkare/v1/questions`,
+      `https://myndkare-backend.onrender.com/myndkare/v1/questions`,
       {
         method: "PUT",
         headers: {
