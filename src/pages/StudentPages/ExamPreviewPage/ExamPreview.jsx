@@ -2,8 +2,10 @@ import React from "react";
 import { Button, Col, Collapse, Row } from "antd";
 import { useNavigate, usenavigate } from "react-router-dom";
 import { DownloadOutlined, FundViewOutlined } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { showQuestions } from "../../../redux/questionSlice";
+import { SET_TOAST_STATE } from "../../../constants/constants";
+import { useDispatch, useSelector } from "react-redux";
 
 const ExamPreview = () => {
   const navigate = useNavigate();
@@ -16,6 +18,57 @@ const ExamPreview = () => {
   // const tests = JSON.parse(localStorage.getItem("tests"));
   const viewReport = () => {
     navigate("/exam/report");
+  };
+
+
+  // let { questions} = useSelector((state) => { 
+  //   if(state.questionDetail) {
+  //     console.log("hurrraaayyy"+JSON.stringify(state.questionDetail));
+  //     // dispatch({
+  //     //   type: SET_TOAST_STATE,
+  //     //   payload: {
+  //     //     showToast: true,
+  //     //     message: "Welcome "+state,
+  //     //     toastType: "success",
+  //     //   },
+  //     // });
+  //     // navigate("/student/exam/preview",{state: state.testDetail});
+  //   }
+
+  //   if(state.questionDetail?.questions) {
+  //     navigate("/student/exam/"+state.questionDetail?.questions._id,{state: state.questionDetail?.questions});
+  //   }
+  //   return state.questionDetail; 
+  // });
+
+
+  const onOpenQuestions = async (examId, studentId) => {
+    console.log("yaha to aara bc"+examId+"   "+studentId);
+    try {
+      // const { data } = dispatch(loginUser(requestid));
+      // console.log("hhttddddddddddd")
+      // console.log("hhttddddd"+JSON.stringify(data))
+      // localStorage.setItem("studentid", JSON.stringify(data._id));
+      // const { testsdata } = await dispatch(gettests(data._id));
+      // console.log("testsdata"+JSON.stringify(testsdata));
+      // data.tests = testsdata;
+      // localStorage.setItem("tests", JSON.stringify(data?.tests));
+      // console.log(data);
+      navigate("/student/exam/"+examId,{state: {studentId: studentId,examId: examId }});
+
+      // if (data?.userObj?.role === "subAdmin") { // navigate to SubAdmin pages
+      //   navigate("/student/exam/preview");
+      // }
+    } catch (error) {
+      dispatch({
+        type: SET_TOAST_STATE,
+        payload: {
+          showToast: true,
+          message: error,
+          toastType: "error",
+        },
+      });
+    }
   };
 let items = [];
   for(let i=0;i<state.tests.response.length;i++) {
@@ -38,7 +91,7 @@ let items = [];
           <Button
             className="bg-success text-light btn-float"
             size="large"
-            onClick={() => navigate("/student/exam/23456")}
+            onClick={() => onOpenQuestions(element._id,state.tests._id)}
           >
             {element.buttonText}
           </Button>

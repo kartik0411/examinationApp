@@ -28,9 +28,10 @@ export const createQuestion = createAsyncThunk(
 //read action
 export const showQuestions = createAsyncThunk(
   "showQuestions",
-  async (args, { rejectWithValue }) => {
+  async (id,examid, { rejectWithValue }) => {
+    console.log("yahah bhi aararrarararra bccccc"+id+"   "+examid);
     const response = await fetch(
-      "http://localhost:9083/myndkare/v1/questions",
+      `http://localhost:9083/myndkare/v1/questionsForExam/${id}/${examid}`,
       { method: "GET" }
     );
 
