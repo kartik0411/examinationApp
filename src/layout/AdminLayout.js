@@ -29,7 +29,7 @@ const AdminLayout = ({ children }) => {
   const logout = () => {
     console.log("clicked");
     localStorage.removeItem("token");
-    navigate("/auth/login");
+    navigate("/");
   };
   return (
     <Layout>

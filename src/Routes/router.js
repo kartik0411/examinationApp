@@ -50,10 +50,10 @@ export const adminRoutes = [
     exact: true,
     Component: AdminClassPage,
   },
-  {
-    path: "/auth/login",
+  { 
+    path: "/",
     exact: true,
-    Component: Login,
+    Component: Login, 
   },
 ];
 
