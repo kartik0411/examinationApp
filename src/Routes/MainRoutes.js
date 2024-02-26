@@ -1,11 +1,11 @@
 import React from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, HashRouter  } from "react-router-dom";
 import Layout from "../layout";
 import { adminRoutes, examReport, studentRoutes } from "./router";
 const MainRoutes = () => {
   return (
     <>
-      <BrowserRouter>
+       <HashRouter>
         <Routes>
           {adminRoutes.map(({ path, Component }) => (
             <Route
@@ -51,7 +51,7 @@ const MainRoutes = () => {
             />
           ))}
         </Routes>
-      </BrowserRouter>
+        </HashRouter>
     </>
   );
 };
