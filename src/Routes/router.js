@@ -51,7 +51,7 @@ export const adminRoutes = [
     Component: AdminClassPage,
   },
   {
-    path: "/auth/login",
+    path: "/",
     exact: true,
     Component: Login,
   },

@@ -13,7 +13,7 @@ const StudentLayout = ({ children }) => {
   const handleLogout = () => {
     setOpen(false);
     localStorage.clear();
-    navigate("/auth/login");
+    navigate("/");
   };
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
