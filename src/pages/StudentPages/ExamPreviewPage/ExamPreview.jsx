@@ -16,7 +16,7 @@ const ExamPreview = () => {
   };
   console.log("finally yyyyy ="+JSON.stringify(state));
   // const tests = JSON.parse(localStorage.getItem("tests"));
-  const viewReport = () => { 
+  const viewReport = () => {
     navigate("/exam/report");
   };
 

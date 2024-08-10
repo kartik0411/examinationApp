@@ -52,14 +52,18 @@ function ExamQuestions() {
     if(data?.timer) {
       console.log("ooopsie")
         setTimer(true);
-        setTimeLeft(parseInt(data?.duration));
+        setTimeLeft(parseInt(data?.duration)-1);
         console.log("ooops")
         
         //ADD LOGIC FOR TIMER
-        setInterval(function() {
-          if (timeLeft == 0) clearInterval(this); 
-          else setTimeLeft(timeLeft-1);
-        }, 1000);
+        for (let i = data?.duration; i >= 0; i--) {
+          setTimeout(() => {
+            setTimeLeft(data?.duration-i);
+          }, i * 1000)
+        }
+        // after every second{
+        //   setTimeLeft(timeLeft--);
+        // }
     } 
     let answersarray = [];
     for(let i=0;i<data?.questions.length;i++) {
