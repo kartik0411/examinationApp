@@ -47,7 +47,7 @@ const ExamPreview = () => {
     try {
       // const { data } = dispatch(loginUser(requestid));
       // console.log("hhttddddddddddd")
-      // console.log("hhttddddd"+JSON.stringify(data))  
+      // console.log("hhttddddd"+JSON.stringify(data))
       // localStorage.setItem("studentid", JSON.stringify(data._id));
       // const { testsdata } = await dispatch(gettests(data._id));
       // console.log("testsdata"+JSON.stringify(testsdata));
@@ -91,7 +91,7 @@ let items = [];
           <Button
             className="bg-success text-light btn-float"
             size="large"
-            onClick={() => onOpenQuestions(element._id,state.tests._id)} 
+            onClick={() => onOpenQuestions(element._id,state.tests._id)}
           >
             {element.buttonText}
           </Button>
@@ -211,7 +211,6 @@ let items = [];
             icon={<FundViewOutlined />}
             size="large"
             onClick={() => viewReport()}
-            disabled = {!state.tests.finalReportFlag}
           >
             View Report
           </Button>

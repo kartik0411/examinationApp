@@ -11,18 +11,12 @@ import {
 } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 import SubmitButton from "../../../components/Buttons/SubmitButton";
 import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SET_TOAST_STATE } from "../../../constants/constants";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
 function ExamQuestions() {
   const { Countdown } = Statistic;
@@ -31,9 +25,6 @@ function ExamQuestions() {
   const [mbtiQuestions, setMbtiQuestions] = useState();
   const [answers, setAnswers] = useState([]);
   const [submits, setSubmits] = useState(false);
-  const [timer, setTimer] = useState(false);  
-  const [dialogopen, setDialogopen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState();
   const [answeredques, setAnsweredques] = useState();
   // const countdownValue = Date.now() + 210000;
   const { state } = useLocation();
@@ -49,31 +40,15 @@ function ExamQuestions() {
 
   const fetchMBtiQuestions = async () => { 
     const { data } = await axios.get("/questionsForExam/"+state.studentId+"/"+state.examId);
-    if(data?.timer) {
-      console.log("ooopsie")
-        setTimer(true);
-        setTimeLeft(parseInt(data?.duration)-1);
-        console.log("ooops")
-        
-        //ADD LOGIC FOR TIMER
-        for (let i = data?.duration; i >= 0; i--) {
-          setTimeout(() => {
-            setTimeLeft(data?.duration-i);
-          }, i * 1000)
-        }
-        // after every second{
-        //   setTimeLeft(timeLeft--);
-        // }
-    } 
     let answersarray = [];
     for(let i=0;i<data?.questions.length;i++) {
       answersarray.push(data.questions[i].optionSelected);
     }
     setAnsweredques(data?.answeredques);
     setAnswers(answersarray);
-    console.log("aagya daTA VBC"+JSON.stringify(data));  
+    console.log("aagya daTA VBC"+JSON.stringify(data));
     setMbtiQuestions(data);
-    if(data?.answeredques===data?.questions.length) { 
+    if(data?.answeredques===data?.questions.length) {
       setSubmits(true);
     } else {
       setSubmits(false);
@@ -91,14 +66,6 @@ function ExamQuestions() {
       setSubmits(false);
     }
   }, [answeredques]);
-
-  useEffect(()=> {
-
-    if(timeLeft==0) {
-      // console.log("yaaaaaahhhhhhhhhhh");
-      // setDialogopen(true);
-    }
-  }, [timeLeft])
 
   const selectedOption = async (e, _id, questionNumber) => {
     console.log("bc option hai"+e.target.value, _id, questionNumber);
@@ -138,15 +105,7 @@ function ExamQuestions() {
   const handleSubmit = async () => {
     let submitbody = {studentId: state.studentId,examId: state.examId}
     await axios.post("/submitExam",submitbody);
-    setMbtiQuestions();
-    setAnswers([]);
-    setSubmits(false);
-    setTimer(false);
-    setDialogopen(false);
-    setTimeLeft();
-    setAnsweredques();
     let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
-
     // answers.sort((a, b) => a.questionNumber - b.questionNumber);
     // if (mbtiQuestions.length !== answers.length) {
     //   console.log("golgappa", mbtiQuestions.length);
@@ -164,18 +123,6 @@ function ExamQuestions() {
       navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
     // }
     // console.log(answers, "....");
-  };
-
-  const handleClose = async () => {
-    setMbtiQuestions();
-    setAnswers([]);
-    setSubmits(false);
-    setTimer(false);
-    setDialogopen(false);
-    setTimeLeft();
-    setAnsweredques();
-    let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
-      navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
   };
   const handleQuestionSelection = (e) => {
     console.log(e);
@@ -235,15 +182,7 @@ function ExamQuestions() {
           <Card className="h-100">
             <Row gutter={24} className="h-100">
               <Col md={24}> 
-                <h3 className="font-weight-bold">{mbtiQuestions?.name}</h3>
-                <hr />
-              </Col>
-              <Col md={24}> 
-                <h4 className="font-weight-bold">Time Left : <span style={{ color: 'red' }}>{timeLeft}</span> Seconds</h4>
-                <hr />
-              </Col>
-              <Col md={24}> 
-                <h5 className="font-weight-bold">Answer Status</h5>
+                <h3 className="font-weight-bold">ANSWER STATUS</h3>
                 <hr />
               </Col>
               {mbtiQuestions && mbtiQuestions?.questions.map((question, index) => (
@@ -276,28 +215,6 @@ function ExamQuestions() {
           </Card>
         </Col>
       </Row>
-      <Dialog
-        open={dialogopen}
-        onClose={handleClose()}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {/* <Button onClick={handleClose()}>Cancel</Button>
-          <Button onClick={handleSubmit()} autoFocus>
-            Submit Exam
-          </Button> */}
-        </DialogActions>
-      </Dialog>
     </>
   );
 }
