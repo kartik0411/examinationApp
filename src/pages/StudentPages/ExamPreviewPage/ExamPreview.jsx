@@ -211,6 +211,7 @@ let items = [];
             icon={<FundViewOutlined />}
             size="large"
             onClick={() => viewReport()}
+            disabled = {!state.tests.finalReportFlag}
           >
             View Report
           </Button>

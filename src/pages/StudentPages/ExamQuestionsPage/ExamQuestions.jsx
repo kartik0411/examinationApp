@@ -26,20 +26,24 @@ function ExamQuestions() {
   const [answers, setAnswers] = useState([]);
   const [submits, setSubmits] = useState(false);
   const [answeredques, setAnsweredques] = useState();
-  // const countdownValue = Date.now() + 210000;
+  const [timer, setTimer] = useState(false);  
+  const [timeLeft, setTimeLeft] = useState(-1);
   const { state } = useLocation();
+  const [dialogopen, setDialogopen] = useState(false);
   const goNext = () => {};
   const goPrevious = () => {};
-  // const onChange = (val) => {
-  //   if (typeof val === "number" && 4.95 * 1000 < val && val < 5 * 1000) {
-  //     console.log("changed!");
-  //   }
-  // };
 
 
 
   const fetchMBtiQuestions = async () => { 
     const { data } = await axios.get("/questionsForExam/"+state.studentId+"/"+state.examId);
+    if(data?.timer) {
+      console.log("ooopsie")
+        setTimer(true);
+        setTimeLeft(parseInt(data?.duration));
+        console.log("ooops")
+      
+     } 
     let answersarray = [];
     for(let i=0;i<data?.questions.length;i++) {
       answersarray.push(data.questions[i].optionSelected);
@@ -54,6 +58,46 @@ function ExamQuestions() {
       setSubmits(false);
     }
   };
+
+  useEffect(()=> {
+
+    if(timeLeft==0) {
+      console.log("yaaaaaahhhhhhhhhhh");
+      // setDialogopen(true);
+    }
+    else if(timeLeft>0) {
+      setTimeout(function () {
+                    console.log("time left hai "+timeLeft)
+                    let uv = timeLeft-1;
+                                console.log("time left minus one hai "+uv)
+  
+       setTimeLeft(timeLeft-1);
+        console.log('Hello world')
+      }, 1000)
+      
+        //ADD LOGIC FOR TIMER
+        // setInterval(function() {
+        //   // if (timeLeft == 0) {
+        //     // console.log(" submit karne ka time aagya")
+        //     // setMbtiQuestions();
+        //     // setAnswers([]);
+        //     // setSubmits(true);
+        //     // setTimer(false);
+        //     // setDialogopen(false);
+        //     // setTimeLeft();
+        //     // setAnsweredques();
+        //     // let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
+        //     // navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
+        //   // }
+        //   // else { 
+        //     console.log("time left hai "+timeLeft)
+        //     console.log("time left minus one hai "+timeLeft-1)
+        //     setTimeLeft(timeLeft-1);
+        //     clearInterval(this); 
+        //   // } 
+        // }, 1000);
+    }
+  }, [timeLeft])
 
   useEffect(() => {
     fetchMBtiQuestions();
@@ -79,27 +123,6 @@ function ExamQuestions() {
     answerss[questionNumber] = e.target.value;
     setAnswers(answerss);
     console.log("answers ="+JSON.stringify(answers)+answeredques+submits);
-    // setAnswers((prev) => {
-    //   const isDifferentQuestion = !prev.some(
-    //     (previousAnswer) => previousAnswer.questionNumber === questionNumber
-    //   );
-    //   if (isDifferentQuestion) {
-    //     return [
-    //       ...prev,
-    //       {
-    //         value: e.target.value,
-    //         id: _id,
-    //         questionNumber,
-    //       },
-    //     ];
-    //   } else {
-    //     return prev.map((previousAnswer) =>
-    //       previousAnswer.questionNumber === questionNumber
-    //         ? { ...previousAnswer, value: e.target.value }
-    //         : previousAnswer
-    //     );
-    //   }
-    // });
   };
 
   const handleSubmit = async () => {
@@ -121,8 +144,8 @@ function ExamQuestions() {
     //   dispatch({ type: "ANSWER_SUBMITTED", payload: { answers } });
     //   localStorage.setItem("answers", JSON.stringify(answers));
       navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
-    // }
-    // console.log(answers, "....");
+      
+
   };
   const handleQuestionSelection = (e) => {
     console.log(e);
@@ -182,8 +205,15 @@ function ExamQuestions() {
           <Card className="h-100">
             <Row gutter={24} className="h-100">
               <Col md={24}> 
-                <h3 className="font-weight-bold">ANSWER STATUS</h3>
+                <h3 className="font-weight-bold">{mbtiQuestions?.name}</h3>
                 <hr />
+              </Col>
+              <Col md={24}> 
+                <h4 className="font-weight-bold">Time Left : <span style={{ color: 'red' }}>{timeLeft}</span> Seconds</h4>
+                <hr />
+              </Col>
+              <Col md={24}> 
+                <h5 className="font-weight-bold">Answer Status</h5>
               </Col>
               {mbtiQuestions && mbtiQuestions?.questions.map((question, index) => (
                 <Col md={3} key={question._id} className="p-2">
@@ -192,7 +222,7 @@ function ExamQuestions() {
                     value={index + 1} 
                     onClick={(e) => handleQuestionSelection(e.target.value)}
                   >
-                    {index + 1}
+                    {index + 1} 
                   </Button>
                 </Col>
               ))}
