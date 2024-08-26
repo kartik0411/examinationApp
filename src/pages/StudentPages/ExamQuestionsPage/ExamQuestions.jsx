@@ -22,24 +22,32 @@ function ExamQuestions() {
   const { Countdown } = Statistic;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [mbtiQuestions, setMbtiQuestions] = useState();
+  const [questions, setQuestions] = useState();
   const [answers, setAnswers] = useState([]);
   const [submits, setSubmits] = useState(false);
   const [answeredques, setAnsweredques] = useState();
-  // const countdownValue = Date.now() + 210000;
+  const [timer, setTimer] = useState(false);  
+  const [timeLeft, setTimeLeft] = useState(-1);
   const { state } = useLocation();
+  const [isDBDA, setIsDBDA] = useState(false);
+  const [dialogopen, setDialogopen] = useState(false);
   const goNext = () => {};
   const goPrevious = () => {};
-  // const onChange = (val) => {
-  //   if (typeof val === "number" && 4.95 * 1000 < val && val < 5 * 1000) {
-  //     console.log("changed!");
-  //   }
-  // };
 
 
 
   const fetchMBtiQuestions = async () => { 
     const { data } = await axios.get("/questionsForExam/"+state.studentId+"/"+state.examId);
+    if(data?.dbdaId && data?.dbdaId!="") {
+      setIsDBDA(true);
+    }
+    if(data?.timer) {
+      console.log("ooopsie")
+        setTimer(true);
+        setTimeLeft(parseInt(data?.duration));
+        console.log("ooops")
+      
+     } 
     let answersarray = [];
     for(let i=0;i<data?.questions.length;i++) {
       answersarray.push(data.questions[i].optionSelected);
@@ -47,20 +55,60 @@ function ExamQuestions() {
     setAnsweredques(data?.answeredques);
     setAnswers(answersarray);
     console.log("aagya daTA VBC"+JSON.stringify(data));
-    setMbtiQuestions(data);
-    if(data?.answeredques===data?.questions.length) {
+    setQuestions(data);
+    if(isDBDA || data?.answeredques===data?.questions.length) {
       setSubmits(true);
     } else {
       setSubmits(false);
     }
   };
 
+  useEffect(()=> {
+
+    if(timeLeft==0) {
+      console.log("yaaaaaahhhhhhhhhhh");
+      // setDialogopen(true);
+    }
+    else if(timeLeft>0) {
+      setTimeout(function () {
+                    console.log("time left hai "+timeLeft)
+                    let uv = timeLeft-1;
+                                console.log("time left minus one hai "+uv)
+  
+       setTimeLeft(timeLeft-1);
+        console.log('Hello world')
+      }, 1000)
+      
+        //ADD LOGIC FOR TIMER
+        // setInterval(function() {
+        //   // if (timeLeft == 0) {
+        //     // console.log(" submit karne ka time aagya")
+        //     // setQuestions();
+        //     // setAnswers([]);
+        //     // setSubmits(true);
+        //     // setTimer(false);
+        //     // setDialogopen(false);
+        //     // setTimeLeft();
+        //     // setAnsweredques();
+        //     // let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
+        //     // navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
+        //   // }
+        //   // else { 
+        //     console.log("time left hai "+timeLeft)
+        //     console.log("time left minus one hai "+timeLeft-1)
+        //     setTimeLeft(timeLeft-1);
+        //     clearInterval(this); 
+        //   // } 
+        // }, 1000);
+    }
+  }, [timeLeft])
+
   useEffect(() => {
     fetchMBtiQuestions();
   }, []);
 
-  useEffect(() => {
-    if(answeredques===mbtiQuestions?.questions.length) {
+  useEffect(() => { 
+    if(isDBDA || answeredques===questions?.questions.length) { 
       setSubmits(true);
     } else {
       setSubmits(false);
@@ -71,7 +119,7 @@ function ExamQuestions() {
     console.log("bc option hai"+e.target.value, _id, questionNumber);
     let liveResponse = {studentId: state.studentId, examId: state.examId, questionId: _id, option: e.target.value}
     await axios.post("/liveresponse",liveResponse);
-    if(answers[questionNumber]==0) {
+    if(answers[questionNumber]==0) {  
       setAnsweredques(answeredques+1);
     }
     let answerss = [];
@@ -79,27 +127,6 @@ function ExamQuestions() {
     answerss[questionNumber] = e.target.value;
     setAnswers(answerss);
     console.log("answers ="+JSON.stringify(answers)+answeredques+submits);
-    // setAnswers((prev) => {
-    //   const isDifferentQuestion = !prev.some(
-    //     (previousAnswer) => previousAnswer.questionNumber === questionNumber
-    //   );
-    //   if (isDifferentQuestion) {
-    //     return [
-    //       ...prev,
-    //       {
-    //         value: e.target.value,
-    //         id: _id,
-    //         questionNumber,
-    //       },
-    //     ];
-    //   } else {
-    //     return prev.map((previousAnswer) =>
-    //       previousAnswer.questionNumber === questionNumber
-    //         ? { ...previousAnswer, value: e.target.value }
-    //         : previousAnswer
-    //     );
-    //   }
-    // });
   };
 
   const handleSubmit = async () => {
@@ -107,8 +134,8 @@ function ExamQuestions() {
     await axios.post("/submitExam",submitbody);
     let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
     // answers.sort((a, b) => a.questionNumber - b.questionNumber);
-    // if (mbtiQuestions.length !== answers.length) {
-    //   console.log("golgappa", mbtiQuestions.length);
+    // if (questions.length !== answers.length) {
+    //   console.log("golgappa", questions.length);
     //   dispatch({
     //     type: SET_TOAST_STATE,
     //     payload: {
@@ -121,8 +148,8 @@ function ExamQuestions() {
     //   dispatch({ type: "ANSWER_SUBMITTED", payload: { answers } });
     //   localStorage.setItem("answers", JSON.stringify(answers));
       navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
-    // }
-    // console.log(answers, "....");
+      
+
   };
   const handleQuestionSelection = (e) => {
     console.log(e);
@@ -135,7 +162,7 @@ function ExamQuestions() {
             <h3 className="font-weight-bold text-center">Questions</h3>
             <hr />
             <Watermark content="MYNDKARE EXAMS">
-              {mbtiQuestions && mbtiQuestions?.questions.map((question, index) => (
+              {questions && questions?.questions.map((question, index) => (
                 <Form.Item key={question._id}>
                   <p className="pt-4 px-4">
                     {index + 1}. {question.name}
@@ -182,17 +209,24 @@ function ExamQuestions() {
           <Card className="h-100">
             <Row gutter={24} className="h-100">
               <Col md={24}> 
-                <h3 className="font-weight-bold">ANSWER STATUS</h3>
+                <h3 className="font-weight-bold">{questions?.name}</h3>
                 <hr />
               </Col>
-              {mbtiQuestions && mbtiQuestions?.questions.map((question, index) => (
+              <Col md={24}> 
+                <h4 className="font-weight-bold">Time Left : <span style={{ color: 'red' }}>{timeLeft}</span> Seconds</h4>
+                <hr />
+              </Col>
+              <Col md={24}> 
+                <h5 className="font-weight-bold">Answer Status</h5>
+              </Col>
+              {questions && questions?.questions.map((question, index) => (
                 <Col md={3} key={question._id} className="p-2">
                   <Button
                     shape="circle"
                     value={index + 1} 
                     onClick={(e) => handleQuestionSelection(e.target.value)}
                   >
-                    {index + 1}
+                    {index + 1} 
                   </Button>
                 </Col>
               ))}
