@@ -22,13 +22,14 @@ function ExamQuestions() {
   const { Countdown } = Statistic;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [mbtiQuestions, setMbtiQuestions] = useState();
+  const [questions, setQuestions] = useState();
   const [answers, setAnswers] = useState([]);
   const [submits, setSubmits] = useState(false);
   const [answeredques, setAnsweredques] = useState();
   const [timer, setTimer] = useState(false);  
   const [timeLeft, setTimeLeft] = useState(-1);
   const { state } = useLocation();
+  const [isDBDA, setIsDBDA] = useState(false);
   const [dialogopen, setDialogopen] = useState(false);
   const goNext = () => {};
   const goPrevious = () => {};
@@ -37,6 +38,9 @@ function ExamQuestions() {
 
   const fetchMBtiQuestions = async () => { 
     const { data } = await axios.get("/questionsForExam/"+state.studentId+"/"+state.examId);
+    if(data?.dbdaId && data?.dbdaId!="") {
+      setIsDBDA(true);
+    }
     if(data?.timer) {
       console.log("ooopsie")
         setTimer(true);
@@ -51,8 +55,8 @@ function ExamQuestions() {
     setAnsweredques(data?.answeredques);
     setAnswers(answersarray);
     console.log("aagya daTA VBC"+JSON.stringify(data));
-    setMbtiQuestions(data);
-    if(data?.answeredques===data?.questions.length) {
+    setQuestions(data);
+    if(isDBDA || data?.answeredques===data?.questions.length) {
       setSubmits(true);
     } else {
       setSubmits(false);
@@ -79,7 +83,7 @@ function ExamQuestions() {
         // setInterval(function() {
         //   // if (timeLeft == 0) {
         //     // console.log(" submit karne ka time aagya")
-        //     // setMbtiQuestions();
+        //     // setQuestions();
         //     // setAnswers([]);
         //     // setSubmits(true);
         //     // setTimer(false);
@@ -103,8 +107,8 @@ function ExamQuestions() {
     fetchMBtiQuestions();
   }, []);
 
-  useEffect(() => {
-    if(answeredques===mbtiQuestions?.questions.length) {
+  useEffect(() => { 
+    if(isDBDA || answeredques===questions?.questions.length) { 
       setSubmits(true);
     } else {
       setSubmits(false);
@@ -115,7 +119,7 @@ function ExamQuestions() {
     console.log("bc option hai"+e.target.value, _id, questionNumber);
     let liveResponse = {studentId: state.studentId, examId: state.examId, questionId: _id, option: e.target.value}
     await axios.post("/liveresponse",liveResponse);
-    if(answers[questionNumber]==0) {
+    if(answers[questionNumber]==0) {  
       setAnsweredques(answeredques+1);
     }
     let answerss = [];
@@ -130,8 +134,8 @@ function ExamQuestions() {
     await axios.post("/submitExam",submitbody);
     let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
     // answers.sort((a, b) => a.questionNumber - b.questionNumber);
-    // if (mbtiQuestions.length !== answers.length) {
-    //   console.log("golgappa", mbtiQuestions.length);
+    // if (questions.length !== answers.length) {
+    //   console.log("golgappa", questions.length);
     //   dispatch({
     //     type: SET_TOAST_STATE,
     //     payload: {
@@ -158,7 +162,7 @@ function ExamQuestions() {
             <h3 className="font-weight-bold text-center">Questions</h3>
             <hr />
             <Watermark content="MYNDKARE EXAMS">
-              {mbtiQuestions && mbtiQuestions?.questions.map((question, index) => (
+              {questions && questions?.questions.map((question, index) => (
                 <Form.Item key={question._id}>
                   <p className="pt-4 px-4">
                     {index + 1}. {question.name}
@@ -205,7 +209,7 @@ function ExamQuestions() {
           <Card className="h-100">
             <Row gutter={24} className="h-100">
               <Col md={24}> 
-                <h3 className="font-weight-bold">{mbtiQuestions?.name}</h3>
+                <h3 className="font-weight-bold">{questions?.name}</h3>
                 <hr />
               </Col>
               <Col md={24}> 
@@ -215,7 +219,7 @@ function ExamQuestions() {
               <Col md={24}> 
                 <h5 className="font-weight-bold">Answer Status</h5>
               </Col>
-              {mbtiQuestions && mbtiQuestions?.questions.map((question, index) => (
+              {questions && questions?.questions.map((question, index) => (
                 <Col md={3} key={question._id} className="p-2">
                   <Button
                     shape="circle"
