@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/examinationApp/static/css/main.753f373b.css",
-    "main.js": "/examinationApp/static/js/main.fd3b52b8.js",
+    "main.js": "/examinationApp/static/js/main.ae047722.js",
     "static/js/96.38d478f2.chunk.js": "/examinationApp/static/js/96.38d478f2.chunk.js",
     "static/js/456.7c5e044a.chunk.js": "/examinationApp/static/js/456.7c5e044a.chunk.js",
     "static/js/449.ac22bac8.chunk.js": "/examinationApp/static/js/449.ac22bac8.chunk.js",
     "static/js/20.c321a5b7.chunk.js": "/examinationApp/static/js/20.c321a5b7.chunk.js",
     "static/js/753.fa010f0e.chunk.js": "/examinationApp/static/js/753.fa010f0e.chunk.js",
     "static/js/546.49505d0a.chunk.js": "/examinationApp/static/js/546.49505d0a.chunk.js",
-    "static/js/516.ab8aaa91.chunk.js": "/examinationApp/static/js/516.ab8aaa91.chunk.js",
-    "static/js/15.cbddb5b7.chunk.js": "/examinationApp/static/js/15.cbddb5b7.chunk.js",
+    "static/js/516.071628b2.chunk.js": "/examinationApp/static/js/516.071628b2.chunk.js",
+    "static/js/15.09263b77.chunk.js": "/examinationApp/static/js/15.09263b77.chunk.js",
     "static/js/79.2ead3bdf.chunk.js": "/examinationApp/static/js/79.2ead3bdf.chunk.js",
     "static/js/787.75e445e5.chunk.js": "/examinationApp/static/js/787.75e445e5.chunk.js",
     "static/js/167.9fd8a895.chunk.js": "/examinationApp/static/js/167.9fd8a895.chunk.js",
@@ -24,15 +24,15 @@
     "static/js/661.00888e01.chunk.js": "/examinationApp/static/js/661.00888e01.chunk.js",
     "index.html": "/examinationApp/index.html",
     "main.753f373b.css.map": "/examinationApp/static/css/main.753f373b.css.map",
-    "main.fd3b52b8.js.map": "/examinationApp/static/js/main.fd3b52b8.js.map",
+    "main.ae047722.js.map": "/examinationApp/static/js/main.ae047722.js.map",
     "96.38d478f2.chunk.js.map": "/examinationApp/static/js/96.38d478f2.chunk.js.map",
     "456.7c5e044a.chunk.js.map": "/examinationApp/static/js/456.7c5e044a.chunk.js.map",
     "449.ac22bac8.chunk.js.map": "/examinationApp/static/js/449.ac22bac8.chunk.js.map",
     "20.c321a5b7.chunk.js.map": "/examinationApp/static/js/20.c321a5b7.chunk.js.map",
     "753.fa010f0e.chunk.js.map": "/examinationApp/static/js/753.fa010f0e.chunk.js.map",
     "546.49505d0a.chunk.js.map": "/examinationApp/static/js/546.49505d0a.chunk.js.map",
-    "516.ab8aaa91.chunk.js.map": "/examinationApp/static/js/516.ab8aaa91.chunk.js.map",
-    "15.cbddb5b7.chunk.js.map": "/examinationApp/static/js/15.cbddb5b7.chunk.js.map",
+    "516.071628b2.chunk.js.map": "/examinationApp/static/js/516.071628b2.chunk.js.map",
+    "15.09263b77.chunk.js.map": "/examinationApp/static/js/15.09263b77.chunk.js.map",
     "79.2ead3bdf.chunk.js.map": "/examinationApp/static/js/79.2ead3bdf.chunk.js.map",
     "787.75e445e5.chunk.js.map": "/examinationApp/static/js/787.75e445e5.chunk.js.map",
     "167.9fd8a895.chunk.js.map": "/examinationApp/static/js/167.9fd8a895.chunk.js.map",
@@ -48,6 +48,6 @@
   },
   "entrypoints": [
     "static/css/main.753f373b.css",
-    "static/js/main.fd3b52b8.js"
+    "static/js/main.ae047722.js"
   ]
 }
