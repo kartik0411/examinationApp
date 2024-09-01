@@ -24,9 +24,9 @@ function ExamQuestions() {
   const dispatch = useDispatch();
   const [questions, setQuestions] = useState();
   const [answers, setAnswers] = useState([]);
+  const [answering, setAnswering] = useState(false);
   const [submits, setSubmits] = useState(false);
   const [answeredques, setAnsweredques] = useState();
-  const [timer, setTimer] = useState(false);  
   const [timeLeft, setTimeLeft] = useState(-1);
   const { state } = useLocation();
   const [isDBDA, setIsDBDA] = useState(false);
@@ -42,11 +42,7 @@ function ExamQuestions() {
       setIsDBDA(true);
     }
     if(data?.timer) {
-      console.log("ooopsie")
-        setTimer(true);
         setTimeLeft(parseInt(data?.duration));
-        console.log("ooops")
-      
      } 
     let answersarray = [];
     for(let i=0;i<data?.questions.length;i++) {
@@ -66,40 +62,16 @@ function ExamQuestions() {
   useEffect(()=> {
 
     if(timeLeft==0) {
-      console.log("yaaaaaahhhhhhhhhhh");
-      // setDialogopen(true);
+      setAnswering(false);
     }
     else if(timeLeft>0) {
       setTimeout(function () {
-                    console.log("time left hai "+timeLeft)
-                    let uv = timeLeft-1;
-                                console.log("time left minus one hai "+uv)
-  
        setTimeLeft(timeLeft-1);
-        console.log('Hello world')
-      }, 1000)
-      
-        //ADD LOGIC FOR TIMER
-        // setInterval(function() {
-        //   // if (timeLeft == 0) {
-        //     // console.log(" submit karne ka time aagya")
-        //     // setQuestions();
-        //     // setAnswers([]);
-        //     // setSubmits(true);
-        //     // setTimer(false);
-        //     // setDialogopen(false);
-        //     // setTimeLeft();
-        //     // setAnsweredques();
-        //     // let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
-        //     // navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
-        //   // }
-        //   // else { 
-        //     console.log("time left hai "+timeLeft)
-        //     console.log("time left minus one hai "+timeLeft-1)
-        //     setTimeLeft(timeLeft-1);
-        //     clearInterval(this); 
-        //   // } 
-        // }, 1000);
+      }, 1000);
+      setAnswering(true);
+    }
+    else {
+      setAnswering(true);
     }
   }, [timeLeft])
 
@@ -179,6 +151,7 @@ function ExamQuestions() {
                         name="radio1"
                         key={option}
                         className="my-3"
+                        disabled = {!answering}
                       >
                         <div value={index + 1} className="p-2 px-5">
                         {/* <Divider plain> */}
@@ -213,8 +186,14 @@ function ExamQuestions() {
                 <hr />
               </Col>
               <Col md={24}> 
-                <h4 className="font-weight-bold">Time Left : <span style={{ color: 'red' }}>{timeLeft}</span> Seconds</h4>
-                <hr />
+              {timeLeft>=0 && (
+                <>
+                  <h4 className="font-weight-bold">
+                    Time Left : <span style={{ color: 'red' }}>{timeLeft}</span> Seconds
+                  </h4>
+                  <hr />
+                </>
+              )}
               </Col>
               <Col md={24}> 
                 <h5 className="font-weight-bold">Answer Status</h5>
