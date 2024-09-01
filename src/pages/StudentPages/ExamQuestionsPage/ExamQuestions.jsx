@@ -30,7 +30,8 @@ function ExamQuestions() {
   const [timeLeft, setTimeLeft] = useState(-1);
   const { state } = useLocation();
   const [isDBDA, setIsDBDA] = useState(false);
-  const [dialogopen, setDialogopen] = useState(false);
+  const [answersStatus, setAnswersStatus] = useState(new Map());
+  const [colour, setColour] = useState(true);
   const goNext = () => {};
   const goPrevious = () => {};
 
@@ -45,9 +46,16 @@ function ExamQuestions() {
         setTimeLeft(parseInt(data?.duration));
      } 
     let answersarray = [];
+    let ansstatus = new Map();
     for(let i=0;i<data?.questions.length;i++) {
+      if(data.questions[i].optionSelected && data.questions[i].optionSelected!=0) {
+        ansstatus.set(i+1,true);
+      } else {
+        ansstatus.set(i+1,false);
+      }
       answersarray.push(data.questions[i].optionSelected);
     }
+    setAnswersStatus(ansstatus);
     setAnsweredques(data?.answeredques);
     setAnswers(answersarray);
     console.log("aagya daTA VBC"+JSON.stringify(data));
@@ -88,7 +96,6 @@ function ExamQuestions() {
   }, [answeredques]);
 
   const selectedOption = async (e, _id, questionNumber) => {
-    console.log("bc option hai"+e.target.value, _id, questionNumber);
     let liveResponse = {studentId: state.studentId, examId: state.examId, questionId: _id, option: e.target.value}
     await axios.post("/liveresponse",liveResponse);
     if(answers[questionNumber]==0) {  
@@ -98,7 +105,9 @@ function ExamQuestions() {
     Object.assign(answerss,answers);
     answerss[questionNumber] = e.target.value;
     setAnswers(answerss);
-    console.log("answers ="+JSON.stringify(answers)+answeredques+submits);
+    let ansstatus = answersStatus;
+    ansstatus.set(questionNumber+1,true);
+    setAnswersStatus(ansstatus);
   };
 
   const handleSubmit = async () => {
@@ -124,7 +133,6 @@ function ExamQuestions() {
 
   };
   const handleQuestionSelection = (e) => {
-    console.log(e);
   };
   return (
     <>
@@ -204,6 +212,8 @@ function ExamQuestions() {
                     shape="circle"
                     value={index + 1} 
                     onClick={(e) => handleQuestionSelection(e.target.value)}
+                    style={answersStatus.has(index + 1) && answersStatus.get(index + 1)==true && { backgroundColor: 'green', color: 'white' }} // Customize as needed
+                    // disabled
                   >
                     {index + 1} 
                   </Button>
