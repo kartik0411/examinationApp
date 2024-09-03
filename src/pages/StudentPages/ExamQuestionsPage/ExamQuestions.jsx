@@ -31,7 +31,6 @@ function ExamQuestions() {
   const { state } = useLocation();
   const [isDBDA, setIsDBDA] = useState(false);
   const [answersStatus, setAnswersStatus] = useState(new Map());
-  const [colour, setColour] = useState(true);
   const goNext = () => {};
   const goPrevious = () => {};
 
@@ -39,11 +38,23 @@ function ExamQuestions() {
 
   const fetchMBtiQuestions = async () => { 
     const { data } = await axios.get("/questionsForExam/"+state.studentId+"/"+state.examId);
+    let editTSBody = {studentId: state.studentId, examId: state.examId}
+    let examStatus = await axios.put("/editStartTimestamp",editTSBody);
     if(data?.dbdaId && data?.dbdaId!="") {
       setIsDBDA(true);
     }
     if(data?.timer) {
+      if(examStatus.data.startTime!= null) {
+        let startDateTime = Date.parse(examStatus.data.startTime);
+        const timeleft = data?.duration - ((Date.now()-startDateTime)/1000);
+        if(timeleft>0) {
+          setTimeLeft(parseInt(timeleft));
+        } else {
+          setTimeLeft(0);
+        }
+      } else {
         setTimeLeft(parseInt(data?.duration));
+      }
      } 
     let answersarray = [];
     let ansstatus = new Map();
