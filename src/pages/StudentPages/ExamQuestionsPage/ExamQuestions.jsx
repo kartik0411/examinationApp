@@ -155,9 +155,31 @@ function ExamQuestions() {
             <Watermark content="MYNDKARE EXAMS">
               {questions && questions?.questions.map((question, index) => (
                 <Form.Item key={question._id}>
-                  <p className="pt-4 px-4">
-                    {index + 1}. {question.name}
-                  </p>
+                  {question.images && question.images.length > 0 ?
+                    <div>
+                      <p className="pt-4 px-4">
+                        {index + 1}.
+                      </p>
+                      <p className="pt-4 px-4">
+                        {question.images.map((image, i) =>
+                          <img
+                            src={
+                              image
+                            }
+                            alt=""
+                          />
+                        )}
+                      </p>
+                      <p className="pt-4 px-4">
+                        {question.name}
+                      </p>
+                    </div>
+                    :
+                    <p className="pt-4 px-4">
+                      {index + 1}. {question.name}
+                    </p>
+                  }
+                  
                   <Radio.Group
                     name="radiogroup"
                     className="p-2 px-5"
