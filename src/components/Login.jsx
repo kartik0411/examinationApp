@@ -7,6 +7,7 @@ import { gettests } from "../actions/userActions";
 import { SET_TOAST_STATE } from "../constants/constants";
 import { showoneStudent } from "../redux/studentSlice";
 import { showTest } from "../redux/testSlice";
+import axios from "../axiosConfig";
 
 function Login() {
   const dispatch = useDispatch();
@@ -31,20 +32,21 @@ function Login() {
   //   }
   //   return state.studentDetail; 
   // });
-  let { studenttests} = useSelector((state) => { 
-    if(state.testDetail?.tests?.name) {
-      dispatch({
-        type: SET_TOAST_STATE,
-        payload: {
-          showToast: true,
-          message: "Welcome "+state.testDetail?.tests?.name,
-          toastType: "success",
-        },
-      });
-      navigate("/student/exam/preview",{state: state.testDetail});
-    }
-    return state.testDetail; 
-  });
+  // let { studenttests} = useSelector((state) => { 
+  //   console.log("yahan se hi jaara bc")
+  //   if(state.testDetail?.tests?.name) {
+  //     dispatch({
+  //       type: SET_TOAST_STATE,
+  //       payload: {
+  //         showToast: true,
+  //         message: "Welcome "+state.testDetail?.tests?.name,
+  //         toastType: "success",
+  //       },
+  //     });
+  //     navigate("/student/exam/preview",{state: state.testDetail});
+  //   }
+  //   return state.testDetail; 
+  // });
   const onFinish = async (values) => {
     try {
       console.log("value hai "+JSON.stringify(values))
@@ -59,8 +61,29 @@ function Login() {
       // localStorage.setItem("tests", JSON.stringify(data?.tests));
       // console.log(data);
       if(requestid) {
-        console.log("jjjjjjj")
-        dispatch(showTest(requestid));
+        let testDetails = await axios.get("/getAllTestsExams/"+requestid);
+        console.log(testDetails)
+        if(testDetails?.data?.name) {
+          console.log(testDetails?.data?.name)
+          dispatch({
+            type: SET_TOAST_STATE,
+            payload: {
+              showToast: true,
+              message: "Welcome "+testDetails?.data?.name,
+              toastType: "success",
+            },
+          });
+          navigate("/student/exam/preview",{state: testDetails?.data});
+        } else {
+          dispatch({
+            type: SET_TOAST_STATE,
+            payload: {
+              showToast: true,
+              message: "No Student found for the provided details!",
+              toastType: "error",
+            },
+          });
+        }
       }
       // if (data?.userObj?.role === "subAdmin") { // navigate to SubAdmin pages
       //   navigate("/student/exam/preview");
@@ -70,7 +93,7 @@ function Login() {
         type: SET_TOAST_STATE,
         payload: {
           showToast: true,
-          message: error,
+          message: "No Student found for the provided details!",
           toastType: "error",
         },
       });

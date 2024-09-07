@@ -22,8 +22,13 @@ const ExamPreview = () => {
 
 
   const fetchStudentExamData = async () => { 
-    const { data } = await axios.get("/getAllTestsExams/"+state.tests._id);
+    const { data } = await axios.get("/getAllTestsExams/"+state._id);
     setState1(data);
+  }
+
+  window.onpopstate = () => {
+    navigate("/");
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -118,7 +123,7 @@ let items = [];
             icon={<FundViewOutlined />}
             size="large"
             onClick={() => viewReport()}
-            disabled = {!state1?.finalReportFlag}
+            disabled = {!state1?.resultPublish}
           >
             View Report
           </Button>

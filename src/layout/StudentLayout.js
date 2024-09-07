@@ -8,7 +8,7 @@ const { Header, Content, Footer } = Layout;
 const StudentLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const userInfo  = useSelector((state) => state.userLogin);
 
   const handleLogout = () => {
     setOpen(false);
@@ -81,15 +81,6 @@ const StudentLayout = ({ children }) => {
             open={open}
             onOpenChange={handleOpenChange}
           >
-            <Avatar
-              src={
-                userInfo.role == "student" && userInfo.gender == "female"
-                  ? FEMALE_AVATAR_ICON
-                  : MALE_AVATAR_ICON
-              }
-            >
-              {/* {userInfo?.userObj?.fullName.split(" ")[0][0]} */}
-            </Avatar>
             <span className="text-white mx-2">{Title}</span>
           </Popover>
         </div>
