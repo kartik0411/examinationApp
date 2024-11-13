@@ -183,9 +183,7 @@ function Report(props) {
             <Document>
               <Page size={[600, 11000]} style={{
                 display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'column',
-
+                flexDirection: 'row',
               }}>
                 <a >
                   <div style={{ marginTop: 20, alignItems: 'left' }}>
@@ -196,57 +194,57 @@ function Report(props) {
                       style={{ height: 75, width: 150 }}
                     />
                   </div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2" style={{ marginTop: 0 }}>
+                  <div style={{ marginLeft: 250 }}>
                     <Text style={{ fontSize: 60, color: '#1adb4e', fontWeight: "bold" }}>MYNDKARE
                     </Text>
                   </div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2" style={{ marginTop: 65 }} >
-                    <Text style={{ fontSize: 17, color: '#000000', lineHeight: 50 }}>Career Testing and Counselling Services
+                  <div style={{ marginLeft: 260 }}  >
+                    <Text style={{ fontSize: 17, color: '#000000' }}>Career Testing and Counselling Services
                     </Text>
                   </div>
                   {selectedValue.testid == null && (
-                    <div className="absolute left-1/2 transform -translate-x-1/2" style={{ marginTop: 100 }} >
-                      <Text style={{ fontSize: 12, color: '#000000', lineHeight: 50 }}>Certification no: {selectedValue._id}
+                    <div style={{ marginLeft: 292 }}  >
+                      <Text style={{ fontSize: 12, color: '#000000' }}>Certification no: {selectedValue._id}
                       </Text>
                     </div>
                   )}
-                  <div className="absolute left-1/2 transform -translate-x-1/2" style={{ marginTop: 160 }} >
-                    <Text style={{ fontSize: 21, color: '#000000', lineHeight: 50, textDecorationLine: 'underline', fontWeight: 'bold' }}>CAREER TESTING AND GUIDANCE REPORT
+                  <div style={{ marginLeft: 215 ,marginTop: 20 }} >
+                    <Text style={{ fontSize: 21, color: '#000000', textDecorationLine: 'underline', fontWeight: 'bold' }}>CAREER TESTING AND GUIDANCE REPORT
                     </Text>
                   </div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2" style={{ marginTop: 280 }} >
-                    <Text style={{ fontSize: 16, color: '#000000', lineHeight: 100, textDecorationLine: 'underline' }}> STUDENT INFORMATION
+                  <div className="absolute left-1/2 transform -translate-x-1/2" style={{ marginLeft: 335, marginTop: 20 }} >
+                    <Text style={{ fontSize: 16, color: '#000000', textDecorationLine: 'underline' }}> STUDENT INFORMATION
                     </Text>
                   </div>
-                  <div className="absolute left" style={{ marginTop: 330 }} >
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100 }}>
+                  <div className="absolute left" style={{ marginTop: 20 }} >
+                    <Text style={{ fontSize: 15, color: '#000000' }}>
                       Student Name:
                     </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100, fontWeight: '300', marginLeft: 5 }}>
+                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
                       {selectedValue?.name}
                     </Text>
                   </div>
-                  <div className="absolute" style={{ left: '67%', marginTop: 330 }} >
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100 }}>
+                  <div className="absolute" style={{ left: '67%', marginTop: 20 }} >
+                    <Text style={{ fontSize: 15, color: '#000000' }}>
                       Admission Number:
                     </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100, fontWeight: '300', marginLeft: 5 }}>
+                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
                       {selectedValue?.admsnno}
                     </Text>
                   </div>
-                  <div className="absolute left" style={{ marginTop: 380 }} >
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100 }}>
+                  <div className="absolute left" style={{ marginTop: 20 }} >
+                    <Text style={{ fontSize: 15, color: '#000000' }}>
                       School:
                     </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100, fontWeight: '300', marginLeft: 5 }}>
+                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
                       {selectedValue?.school}
                     </Text>
                   </div>
-                  <div className="absolute" style={{ left: '67%', marginTop: 380 }} >
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100 }}>
+                  <div className="absolute" style={{ left: '67%', marginTop: 20 }} >
+                    <Text style={{ fontSize: 15, color: '#000000' }}>
                       Class:
                     </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', lineHeight: 100, fontWeight: '300', marginLeft: 5 }}>
+                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
                       {(selectedValue?.section && selectedValue?.section != "") ? (selectedValue?.class + " - " + selectedValue?.section) : (selectedValue?.class)}
                     </Text>
                   </div>
@@ -261,7 +259,7 @@ function Report(props) {
                 justifyContent: 'center',
                 flexDirection: 'column',
                 gap: 50,
-                marginTop: 150
+                marginTop: 20
               }}>
                 <a>
                   <hr style={{ width: '100%', border: '1px solid #000' }} />
