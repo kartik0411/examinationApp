@@ -7,17 +7,22 @@ import { showQuestions } from "../../../redux/questionSlice";
 import { SET_TOAST_STATE } from "../../../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "../../../axiosConfig";
+import Report from "./../Report";
 
 const ExamPreview = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { state } = useLocation();
   const [ state1, setState1 ] = useState();
+  const [reportOpen, setReportOpen] = useState(false);
+  const [reportValue, setReportValue] = useState({});
   const downloadReport = () => {
     // console.log(navigate);
   };
   const viewReport = () => {
-    navigate("/exam/report");
+    let report = state;
+    setReportValue(report);
+    setReportOpen(true);
   };
 
 
@@ -48,6 +53,10 @@ const ExamPreview = () => {
         },
       });
     }
+  };
+  const handleReportClose = (value) => {
+    setReportOpen(false);
+
   };
 let items = [];
   for(let i=0;i<state1?.response.length;i++) {
@@ -129,6 +138,10 @@ let items = [];
           </Button>
         </Row>
       </div>
+      <Report
+                    selectedValue={reportValue}
+                    open={reportOpen}
+                    onClose={handleReportClose} />
     </>
   );
 };

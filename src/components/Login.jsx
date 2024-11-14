@@ -61,7 +61,7 @@ function Login() {
       // localStorage.setItem("tests", JSON.stringify(data?.tests));
       // console.log(data);
       if(requestid) {
-        let testDetails = await axios.get("/getAllTestsExams/"+requestid);
+        let testDetails = await axios.get("/students/"+requestid);
         console.log(testDetails)
         if(testDetails?.data?.name) {
           console.log(testDetails?.data?.name)
