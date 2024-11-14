@@ -186,16 +186,14 @@ function Report(props) {
                 flexDirection: 'row',
               }}>
                 <a >
-                  <div style={{ marginTop: 20, alignItems: 'left' }}>
+                  <div style={{ display: 'flex' }}>
                     <img
                       src="https://www.myndkare.com/wp-content/uploads/2021/05/cropped-myndkare-logo-115x57.png"
                       className="h-16 mr-3"
                       alt="Myndkare Logo"
                       style={{ height: 75, width: 150 }}
                     />
-                  </div>
-                  <div style={{ marginLeft: 250 }}>
-                    <Text style={{ fontSize: 60, color: '#1adb4e', fontWeight: "bold" }}>MYNDKARE
+                    <Text style={{ fontSize: 60, color: '#1adb4e', fontWeight: "bold", marginLeft: 102 }}>MYNDKARE
                     </Text>
                   </div>
                   <div style={{ marginLeft: 260 }}  >
@@ -208,7 +206,7 @@ function Report(props) {
                       </Text>
                     </div>
                   )}
-                  <div style={{ marginLeft: 215 ,marginTop: 20 }} >
+                  <div style={{ marginLeft: 215, marginTop: 20 }} >
                     <Text style={{ fontSize: 21, color: '#000000', textDecorationLine: 'underline', fontWeight: 'bold' }}>CAREER TESTING AND GUIDANCE REPORT
                     </Text>
                   </div>
@@ -216,37 +214,38 @@ function Report(props) {
                     <Text style={{ fontSize: 16, color: '#000000', textDecorationLine: 'underline' }}> STUDENT INFORMATION
                     </Text>
                   </div>
-                  <div className="absolute left" style={{ marginTop: 20 }} >
-                    <Text style={{ fontSize: 15, color: '#000000' }}>
-                      Student Name:
-                    </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
-                      {selectedValue?.name}
-                    </Text>
+                  {/* Student Details */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div >
+                      <Text style={{ fontSize: 15, color: '#000000', marginLeft: 10 }}>Student Name:</Text>
+                      <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
+                        {selectedValue?.name}
+                      </Text>
+                    </div>
+
+                    <div >
+                      <Text style={{ fontSize: 15, color: '#000000', marginLeft: 350 }}>Admission Number:</Text>
+                      <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
+                        {selectedValue?.admsnno}
+                      </Text>
+                    </div>
                   </div>
-                  <div className="absolute" style={{ left: '67%', marginTop: 20 }} >
-                    <Text style={{ fontSize: 15, color: '#000000' }}>
-                      Admission Number:
-                    </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
-                      {selectedValue?.admsnno}
-                    </Text>
-                  </div>
-                  <div className="absolute left" style={{ marginTop: 20 }} >
-                    <Text style={{ fontSize: 15, color: '#000000' }}>
-                      School:
-                    </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
-                      {selectedValue?.school}
-                    </Text>
-                  </div>
-                  <div className="absolute" style={{ left: '67%', marginTop: 20 }} >
-                    <Text style={{ fontSize: 15, color: '#000000' }}>
-                      Class:
-                    </Text>
-                    <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
-                      {(selectedValue?.section && selectedValue?.section != "") ? (selectedValue?.class + " - " + selectedValue?.section) : (selectedValue?.class)}
-                    </Text>
+
+                  {/* School and Class Details */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <div >
+                      <Text style={{ fontSize: 15, color: '#000000', marginLeft: 10 }}>School:</Text>
+                      <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
+                        {selectedValue?.school}
+                      </Text>
+                    </div>
+
+                    <div >
+                      <Text style={{ fontSize: 15, color: '#000000', marginLeft: 400 }}>Class:</Text>
+                      <Text style={{ fontSize: 15, color: '#000000', fontWeight: '300', marginLeft: 5 }}>
+                        {(selectedValue?.section && selectedValue?.section !== "") ? (selectedValue?.class + " - " + selectedValue?.section) : (selectedValue?.class)}
+                      </Text>
+                    </div>
                   </div>
                   {/* Horizontal Line */}
                   {/* <hr style={{ width: '100%', border: '1px solid #000', marginTop: 350 }} /> */}
@@ -281,12 +280,12 @@ function Report(props) {
                           flexDirection: 'column',
                           gap: 2,
                         }}>
-                          {testReport?.examsResults.map(exam=>(
-                          <><Text style={{ fontSize: 16, color: '#000000', textDecorationLine: 'underline' }}>{exam?.name} Personality Type:
+                          {testReport?.examsResults.map(exam => (
+                            <><Text style={{ fontSize: 16, color: '#000000', textDecorationLine: 'underline' }}>{exam?.name} Personality Type:
                             </Text>
-                            <Text style={{ fontSize: 14, color: '#000000' }}> {exam.output}
-                            </Text>
-                          </>
+                              <Text style={{ fontSize: 14, color: '#000000' }}> {exam.output}
+                              </Text>
+                            </>
                           ))}
                         </div>
                       </>}
@@ -358,13 +357,13 @@ function Report(props) {
                       </>}
                       {testReport.type == 3 && <>
                         <div style={{ textAlign: 'center' }}>
-                          <Text style={{ fontSize: 20, color: '#000000',  textDecorationLine: 'underline' }}> {testReport.name} (Interest Test)
+                          <Text style={{ fontSize: 20, color: '#000000', textDecorationLine: 'underline' }}> {testReport.name} (Interest Test)
                           </Text>
                         </div>
                       </>}
                       {testReport.type == 4 && <>
                         <div style={{ textAlign: 'center' }}>
-                          <Text style={{ fontSize: 20, color: '#000000',  textDecorationLine: 'underline' }}> Counsellor Feedback
+                          <Text style={{ fontSize: 20, color: '#000000', textDecorationLine: 'underline' }}> Counsellor Feedback
                           </Text>
                         </div>
                         <div style={{
@@ -373,27 +372,27 @@ function Report(props) {
                           flexDirection: 'column',
                           gap: 2,
                         }}>
-                          <><Text style={{ fontSize: 15, color: '#000000',fontWeight: "bold" }}>Academic:
-                            </Text>
+                          <><Text style={{ fontSize: 15, color: '#000000', fontWeight: "bold" }}>Academic:
+                          </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>{testReport?.feedback?.feedbacks[0]}
                             </Text>
-                            <Text style={{ fontSize: 15, color: '#000000',fontWeight: "bold" }}>Personal Interaction Child:
+                            <Text style={{ fontSize: 15, color: '#000000', fontWeight: "bold" }}>Personal Interaction Child:
                             </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>{testReport?.feedback?.feedbacks[1]}
                             </Text>
-                            <Text style={{ fontSize: 15, color: '#000000',fontWeight: "bold" }}>Personal Interactions Parents:
+                            <Text style={{ fontSize: 15, color: '#000000', fontWeight: "bold" }}>Personal Interactions Parents:
                             </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>{testReport?.feedback?.feedbacks[2]}
                             </Text>
-                            <Text style={{ fontSize: 15, color: '#000000',fontWeight: "bold" }}>Suggested Career or Stream Option-1:
+                            <Text style={{ fontSize: 15, color: '#000000', fontWeight: "bold" }}>Suggested Career or Stream Option-1:
                             </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>{testReport?.feedback?.feedbacks[3]}
                             </Text>
-                            <Text style={{ fontSize: 15, color: '#000000',fontWeight: "bold" }}>Suggested Career or Stream Option-2:
+                            <Text style={{ fontSize: 15, color: '#000000', fontWeight: "bold" }}>Suggested Career or Stream Option-2:
                             </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>{testReport?.feedback?.feedbacks[4]}
                             </Text>
-                            <Text style={{ fontSize: 15, color: '#000000',fontWeight: "bold" }}>Counsellor Remarks:
+                            <Text style={{ fontSize: 15, color: '#000000', fontWeight: "bold" }}>Counsellor Remarks:
                             </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>{testReport?.feedback?.feedbacks[5]}
                             </Text>
@@ -406,7 +405,7 @@ function Report(props) {
                             </Text>
                             <wbr></wbr>
                             <wbr></wbr>
-                            <Text style={{ fontSize: 14, color: '#000000',fontWeight: "bold"  }}>{testReport?.feedback?.feedbacks[6]}
+                            <Text style={{ fontSize: 14, color: '#000000', fontWeight: "bold" }}>{testReport?.feedback?.feedbacks[6]}
                             </Text>
                             <Text style={{ fontSize: 14, color: '#000000' }}>Clinical Psychologist
                             </Text>
