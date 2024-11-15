@@ -100,7 +100,7 @@ let items = [];
           >
             {element.buttonText}
           </Button>
-        </Col>
+        </Col> 
       </Row>);
     }
     rows.push(row);
