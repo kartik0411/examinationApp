@@ -47,6 +47,9 @@ function Login() {
   //   }
   //   return state.testDetail; 
   // });
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   const onFinish = async (values) => {
     try {
       console.log("value hai "+JSON.stringify(values))
@@ -61,7 +64,12 @@ function Login() {
       // localStorage.setItem("tests", JSON.stringify(data?.tests));
       // console.log(data);
       if(requestid) {
-        let testDetails = await axios.get("/students/"+requestid);
+        let testDetails;
+        while (true) {
+          await axios.get("/tests/");
+          console.log("server up")
+          await sleep(5000);
+        }
         console.log(testDetails)
         if(testDetails?.data?.name) {
           console.log(testDetails?.data?.name)
