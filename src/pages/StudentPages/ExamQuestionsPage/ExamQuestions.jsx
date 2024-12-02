@@ -71,7 +71,7 @@ function ExamQuestions() {
     setAnswers(answersarray);
     console.log("aagya daTA VBC"+JSON.stringify(data));
     setQuestions(data);
-    if(isDBDA || data?.answeredques===data?.questions.length) {
+    if((data?.dbdaId && data?.dbdaId!="") || data?.answeredques===data?.questions.length) {
       setSubmits(true);
     } else {
       setSubmits(false);
@@ -169,7 +169,7 @@ function ExamQuestions() {
                             src={
                               image
                             }
-                            alt=""
+                            loading="eager"
                           />
                         )}
                       </p>
