@@ -124,7 +124,8 @@ function ExamQuestions() {
   const handleSubmit = async () => {
     let submitbody = {studentId: state.studentId,examId: state.examId}
     await axios.post("/submitExam",submitbody);
-    let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
+    // let homepagedata = await axios.get("getAllTestsExams/"+state.studentId);
+    let testDetails = await axios.get("/students/"+state.studentId);
     // answers.sort((a, b) => a.questionNumber - b.questionNumber);
     // if (questions.length !== answers.length) {
     //   console.log("golgappa", questions.length);
@@ -139,7 +140,9 @@ function ExamQuestions() {
     // } else {
     //   dispatch({ type: "ANSWER_SUBMITTED", payload: { answers } });
     //   localStorage.setItem("answers", JSON.stringify(answers));
-      navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
+      // navigate("/student/exam/preview",{state: {tests: JSON.parse(JSON.stringify(homepagedata.data))}});
+      navigate("/student/exam/preview",{state: testDetails?.data});
+
       
 
   };
