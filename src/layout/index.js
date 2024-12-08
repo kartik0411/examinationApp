@@ -27,7 +27,10 @@ const getLayout = () => {
 const Container = Layouts[getLayout()];
 const Layout = ({ children }) => {
   console.log(children);
-  if (window.location.pathname.startsWith("/student/exam/")) {
+  if(window.location.pathname.includes("/student/exam/preview")) {
+    return <Container>{children}</Container>;
+  }
+  else if (window.location.pathname.includes("/student/exam/")) {
     return children;
   } else {
      return <Container>{children}</Container>;
