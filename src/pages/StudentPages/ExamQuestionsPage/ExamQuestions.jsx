@@ -155,7 +155,7 @@ function ExamQuestions() {
           <Card className="h-100">
             <h3 className="font-weight-bold text-center">Questions</h3>
             <hr />
-            <Watermark content="MYNDKARE EXAMS">
+            {/* <Watermark content="MYNDKARE EXAMS" fontWeight="light" width = '240' height = '128'> */}
               {questions && questions?.questions.map((question, index) => (
                 <Form.Item key={question._id}>
                   {question.images && question.images.length > 0 ?
@@ -211,7 +211,7 @@ function ExamQuestions() {
                   <hr />
                 </Form.Item>
               ))}
-            </Watermark>
+            {/* </Watermark> */}
             {/* <center className="p-2">
               <Button className="mx-2" onClick={() => goPrevious()}>
                 Previous
@@ -220,10 +220,13 @@ function ExamQuestions() {
                 Next
               </Button>
             </center> */}
-          </Card>
+          </Card> 
         </Col>
         <Col md={8} className="p-3">
-          <Card className="h-100">
+          <Card style={{ 
+      position: 'fixed',
+      marginTop: '0'
+             }}>
             <Row gutter={24} className="h-100">
               <Col md={24}> 
                 <h3 className="font-weight-bold">{questions?.name}</h3>
@@ -261,7 +264,10 @@ function ExamQuestions() {
               value={countdownValue}
               onChange={onChange}
             /> */}
-            <div className="submit_btn">
+          </Card>
+        </Col>
+      </Row>
+      <div className="submit_btn">
               <Button
                 type="primary"
                 htmlType="submit"
@@ -271,9 +277,6 @@ function ExamQuestions() {
                 Submit
               </Button>
             </div>
-          </Card>
-        </Col>
-      </Row>
     </>
   );
 }

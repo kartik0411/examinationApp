@@ -71,7 +71,7 @@ let items = [];
       row = (<Row>
         <Col md={12}>
           <h5>{element.name}</h5>
-          <h6>Qusetions : {element.countQuestions}</h6>
+          <h6>Questions : {element.countQuestions}</h6>
           <h6>{timerText}</h6>
         </Col> 
         <Col md={12}>
