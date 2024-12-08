@@ -10,7 +10,7 @@ const Layouts = {
   admin: AdminLayout,
   auth: AuthLayout,
   student: StudentLayout,
-  main: MainLayout,
+  main: StudentLayout,
 };
 
 const getLayout = () => {
