@@ -27,7 +27,13 @@ const getLayout = () => {
 const Container = Layouts[getLayout()];
 const Layout = ({ children }) => {
   console.log(children);
-  return <Container>{children}</Container>;
+  if (window.location.pathname.startsWith("/student/exam/")) {
+    return children;
+  } else {
+     return <Container>{children}</Container>;
+  }
 };
+
+
 
 export default Layout;

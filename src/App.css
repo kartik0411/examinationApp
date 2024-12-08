@@ -55,7 +55,7 @@ textarea {
 }
 
 .submit_btn {
-  position: absolute !important;
+  position: fixed;
   bottom: 15px !important;
   right: 10px !important;
 }
