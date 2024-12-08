@@ -11,6 +11,8 @@ import axios from "../../axiosConfig";
 import { TableWithoutPagination } from '../../components/Table copy'
 import { BarChart } from '@mui/x-charts/BarChart'; 
 import { axisClasses } from '@mui/x-charts/ChartsAxis';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -64,6 +66,8 @@ function Report(props) {
   const [report, setReport] = useState({});
   const [showDialogActions, setDialogActions] = useState(true);
   const [divref,setDivRef] = useState();
+  const [isFetching, setIsFetching] = useState();
+
   // const [paddingTest, setPaddingTest] = useState(100);
   console.log("hddsds")
   const handleClose = () => {
@@ -91,12 +95,14 @@ function Report(props) {
 
   const getStudentTestReport = async () => {
     if (selectedValue && selectedValue._id) {
+      setIsFetching(true);
       let reportvalue;
       if(selectedValue.testid && selectedValue.testid!="") {
         reportvalue = await axios.get("/report/" + selectedValue._id + "/" + selectedValue.testid)
       } else {
         reportvalue = await axios.get("/report/" + selectedValue._id)
       }
+      setIsFetching(false);
       setReport(reportvalue.data);
     }
   }
@@ -171,7 +177,13 @@ function Report(props) {
 
 
 
-
+  if (isFetching) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <CircularProgress />
+      </Box>
+    );
+  } else {
   return (
     <>
       {selectedValue?._id && report && report.length > 0 &&
@@ -435,6 +447,7 @@ function Report(props) {
       }
     </>
   );
+}
 
 }
 
